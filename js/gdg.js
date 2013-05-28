@@ -1,14 +1,14 @@
 var Config = (function(){
     var config = {
-		//modify these
-		        'name'          : _CHAPTER_NAME_,
-		        'id'            : _CHAPTER_ID_,
-		        'google_api'    : _API_KEY_,
-		        'pwa_id'        : _PICASA_ALBUM_ID, //picasa web album id
+        //modify these
+                'name'          : "GDG Seattle",
+                'id'            : '104304419342230315027',
+                'google_api'    : 'AIzaSyBq72pwSnMvRbzQfy-NdxNtCfbyeh6I6kg',
+                'pwa_id'        : '5706159208906929457', //picasa web album id
         //custom stuff
         'cover_photo'   : true, //best results make sure you have 940x180 image
         'cover_color'   : '#ffffff',
-		'theme'			: 'gdg.css', // also available: devgoogle.css
+        'theme'         : 'gdg.css', // also available: devgoogle.css
         'custom_albums' : {
                             events : {
                                 //'ahNzfmdvb2dsZS1kZXZlbG9wZXJzcg4LEgVFdmVudBib8PsDDA':'5738801490307387457'
@@ -21,7 +21,7 @@ var Config = (function(){
 /**************/
 //INIT
 $(document).ready(function() {
-	$('head').append('<link href="css/'+Config.get('theme')+'" rel="stylesheet"/>');
+    $('head').append('<link href="css/'+Config.get('theme')+'" rel="stylesheet"/>');
     changePanel();
     $('#about_sec').show();
     $('#about_nav').addClass('active');
@@ -52,7 +52,7 @@ $('#join_chapter').click(function(){
     setTimeout(function(){
         win.location.href = 'https://developers.google.com/groups/chapter/'+Config.get('id')+'/';
     },500);
-    
+
 });
 $('li#googleplus').click(function(){window.open('https://plus.google.com/'+Config.get('id'))});
 
@@ -60,16 +60,21 @@ $('li#googleplus').click(function(){window.open('https://plus.google.com/'+Confi
 $.getJSON('https://www.googleapis.com/plus/v1/people/'+Config.get('id')+'?fields=aboutMe%2Ccover%2CdisplayName%2Cimage%2CplusOneCount&key='+Config.get('google_api'), function(data){
     //about
     $('#about').next().html(data.aboutMe);
-    
+
     //cover photo
     if(data.cover.coverPhoto.url && Config.get('cover_photo')){
+        var coverPhoto = data.cover.coverPhoto;
+        var coverInfo = data.cover.coverInfo;
         $('#home').css({
-            'background':'url('+data.cover.coverPhoto.url+') '+data.cover.coverInfo.leftImageOffset+'px '+(data.cover.coverInfo.topImageOffset)+'px',
-            'color' : Config.get('cover_color')
+                'background': 'url(' + coverPhoto.url + ') ' + coverInfo.leftImageOffset + 'px ' + coverInfo.topImageOffset + 'px',
+                    'background-repeat': 'no-repeat',
+                    'color' : Config.get('cover_color'),
+                    'width': coverPhoto.width + 'px',
+                    'height': coverPhoto.height + 'px'
         });
-        
+
     }
-    
+
 })
 
 //tie photo album to event
@@ -88,18 +93,18 @@ $.getJSON("http://gdgfresno.com/gdgfeed.php?id="+Config.get('id'),function(data)
     var now = new Date();
     for(var i=data.length-1;i>=0;i--){
         var start = new Date(data[i].start);
-        
+
         var format = start.format("longDate")
         format += ' '+start.format("shortTime")
-        
+
         var html = '<div class="media">';
         html+= data[i].iconUrl != undefined ? '<a class="pull-left" href="https://developers.google.com'+data[i].link+'" target="_blank"><img class="media-object" src="https://developers.google.com'+data[i].iconUrl+'"></a>' : '';
         html+='<div class="media-body">' +
                             '<h4 class="media-heading"><a href="https://developers.google.com'+data[i].link+'" target="_blank">'+data[i].title+'</a></h4>' +
                             '<h5>'+data[i].location+'<br/>'+format+'</h5>' +
                             data[i].description +
-                        '</div>';   
-        
+                        '</div>';
+
         if(Config.get('custom_albums')){
             var album_id = Config.get('custom_albums').events[data[i].id];
             if( album_id ){
@@ -107,14 +112,14 @@ $.getJSON("http://gdgfresno.com/gdgfeed.php?id="+Config.get('id'),function(data)
                 handleEventPhotos(data[i].id, album_id);
             }
         }
-        
+
         html +='</div>';
-	
+
         if (start < now){
             $('#past_events').next().next().append(html);
-	} else {
+    } else {
             $('#upcoming_events').next().next().prepend(html);
-	}
+    }
     }
     var past = $('#past_events').next().next().children();
     if(past.length > 5 ){
@@ -155,7 +160,7 @@ $.getJSON('https://www.googleapis.com/plus/v1/people/' + Config.get('id') + '/ac
         }
         return;
       }
-      
+
       var entries = [];
       for (var i = 0; i < response.items.length; i++) {
         var item = response.items[i];
@@ -163,7 +168,7 @@ $.getJSON('https://www.googleapis.com/plus/v1/people/' + Config.get('id') + '/ac
         var object = item.object || {};
         // Normalize tweet to a FriendFeed-like entry.
         var item_title = '<b><a href="' + item.url + '">' + item.title + '</a></b>';
-        
+
         var html = [item_title.replace(new RegExp('\n','g'), '<br />')];
         //html.push(' <b>Read More &raquo;</a>');
 
@@ -175,13 +180,13 @@ $.getJSON('https://www.googleapis.com/plus/v1/people/' + Config.get('id') + '/ac
           switch (attachment.objectType) {
             case 'album':
               break;//needs more work
-		var upper = attachment.thumbnails.length > 7 ? 7 : attachment.thumbnails.length;
-		html.push('<ul class="thumbnails">');
-		for(var k=1; k<upper; k++){
-		    html.push('<li class="span2"><img src="' + attachment.thumbnails[k].image.url + '" /></li>');
-		}
-		html.push('</ul>');
-	    
+        var upper = attachment.thumbnails.length > 7 ? 7 : attachment.thumbnails.length;
+        html.push('<ul class="thumbnails">');
+        for(var k=1; k<upper; k++){
+            html.push('<li class="span2"><img src="' + attachment.thumbnails[k].image.url + '" /></li>');
+        }
+        html.push('</ul>');
+
             case 'photo':
               thumbnails.push({
                 url: attachment.image.url,
@@ -208,10 +213,10 @@ $.getJSON('https://www.googleapis.com/plus/v1/people/' + Config.get('id') + '/ac
         }
 
         html = html.join('');
-        
+
         var actor_image = actor.image.url;
         actor_image = actor_image.substr(0,actor_image.length-2)+'16';
-        
+
         var entry = {
           via: {
             name: 'Google+',
@@ -236,18 +241,18 @@ $.getJSON('https://www.googleapis.com/plus/v1/people/' + Config.get('id') + '/ac
 function rebuildStreamUI(entries) {
   entries = entries || [];
   entries.sort(function(x,y){ return y.date - x.date; });
-  
+
   for (var i = 0; i < entries.length; i++) {
     var entry = entries[i];
     var $entry = $('<li>')
         .addClass(entry.via.name)
         .html(entry.body)
-    
+
     // Entry icon
     $('<img class="icon">')
         .attr('src', entry.icon)
         .appendTo($entry);
-    
+
     // Thumbnails
     if (entry.thumbnails && entry.thumbnails.length) {
       var $thumbs = $('<ul class="thumbnails">').appendTo($entry);
@@ -273,9 +278,9 @@ function rebuildStreamUI(entries) {
     $('<span class="from">')
         .html('Posted on ' + dateFormat(entry.date, 'fullDate'))
         .appendTo($meta);
-	
-    
-        
+
+
+
     if (entry.comments) {
       $('<span class="label">')
           .text(entry.comments + ' comment' +
@@ -294,7 +299,7 @@ function rebuildStreamUI(entries) {
 
     $entry.appendTo('#news-feed');
   }
-  
+
   //render +1 buttons
   gapi.plusone.go();
 }
