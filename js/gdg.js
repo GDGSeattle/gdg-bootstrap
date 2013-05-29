@@ -1,19 +1,19 @@
 var Config = (function(){
     var config = {
         //modify these
-                'name'          : "GDG Seattle",
-                'id'            : '104304419342230315027',
-                'google_api'    : 'AIzaSyBq72pwSnMvRbzQfy-NdxNtCfbyeh6I6kg',
-                'pwa_id'        : '5706159208906929457', //picasa web album id
+        'name'          : "GDG Seattle",
+        'id'            : '104304419342230315027',
+        'google_api'    : 'AIzaSyBq72pwSnMvRbzQfy-NdxNtCfbyeh6I6kg',
+        'pwa_id'        : '5706159208906929457', //picasa web album id
         //custom stuff
         'cover_photo'   : true, //best results make sure you have 940x180 image
         'cover_color'   : '#ffffff',
         'theme'         : 'gdg.css', // also available: devgoogle.css
         'custom_albums' : {
-                            events : {
-                                //'ahNzfmdvb2dsZS1kZXZlbG9wZXJzcg4LEgVFdmVudBib8PsDDA':'5738801490307387457'
-                            }
-                          }
+            events : {
+                //'ahNzfmdvb2dsZS1kZXZlbG9wZXJzcg4LEgVFdmVudBib8PsDDA':'5738801490307387457'
+            }
+        }
     }
     return {get : function(a) { return config[a]}}
 })();
@@ -66,11 +66,11 @@ $.getJSON('https://www.googleapis.com/plus/v1/people/'+Config.get('id')+'?fields
         var coverPhoto = data.cover.coverPhoto;
         var coverInfo = data.cover.coverInfo;
         $('#home').css({
-                'background': 'url(' + coverPhoto.url + ') ' + coverInfo.leftImageOffset + 'px ' + coverInfo.topImageOffset + 'px',
-                    'background-repeat': 'no-repeat',
-                    'color' : Config.get('cover_color'),
-                    'width': coverPhoto.width + 'px',
-                    'height': coverPhoto.height + 'px'
+            'background': 'url(' + coverPhoto.url + ') ' + coverInfo.leftImageOffset + 'px ' + coverInfo.topImageOffset + 'px',
+            'background-repeat': 'no-repeat',
+            'color' : Config.get('cover_color'),
+            'width': coverPhoto.width + 'px',
+            'height': coverPhoto.height + 'px'
         });
 
     }
@@ -100,10 +100,10 @@ $.getJSON("http://gdgfresno.com/gdgfeed.php?id="+Config.get('id'),function(data)
         var html = '<div class="media">';
         html+= data[i].iconUrl != undefined ? '<a class="pull-left" href="https://developers.google.com'+data[i].link+'" target="_blank"><img class="media-object" src="https://developers.google.com'+data[i].iconUrl+'"></a>' : '';
         html+='<div class="media-body">' +
-                            '<h4 class="media-heading"><a href="https://developers.google.com'+data[i].link+'" target="_blank">'+data[i].title+'</a></h4>' +
-                            '<h5>'+data[i].location+'<br/>'+format+'</h5>' +
-                            data[i].description +
-                        '</div>';
+            '<h4 class="media-heading"><a href="https://developers.google.com'+data[i].link+'" target="_blank">'+data[i].title+'</a></h4>' +
+            '<h5>'+data[i].location+'<br/>'+format+'</h5>' +
+            data[i].description +
+            '</div>';
 
         if(Config.get('custom_albums')){
             var album_id = Config.get('custom_albums').events[data[i].id];
@@ -117,9 +117,9 @@ $.getJSON("http://gdgfresno.com/gdgfeed.php?id="+Config.get('id'),function(data)
 
         if (start < now){
             $('#past_events').next().next().append(html);
-    } else {
+        } else {
             $('#upcoming_events').next().next().prepend(html);
-    }
+        }
     }
     var past = $('#past_events').next().next().children();
     if(past.length > 5 ){
@@ -153,16 +153,16 @@ $.getJSON(pwa, function(d){
 
 //gdg g+ stream for news (reusing code from Roman Nurik for aggregating g+, twitter and friend feed stream into a webpage)
 $.getJSON('https://www.googleapis.com/plus/v1/people/' + Config.get('id') + '/activities/public?maxResults=10&key=' +Config.get('google_api'), function(response) {
-      if (response.error) {
+    if (response.error) {
         rebuildStreamUI([]);
         if (console && console.error) {
-          console.error('Error loading Google+ stream.', response.error);
+            console.error('Error loading Google+ stream.', response.error);
         }
         return;
-      }
+    }
 
-      var entries = [];
-      for (var i = 0; i < response.items.length; i++) {
+    var entries = [];
+    for (var i = 0; i < response.items.length; i++) {
         var item = response.items[i];
         var actor = item.actor || {};
         var object = item.object || {};
@@ -176,40 +176,40 @@ $.getJSON('https://www.googleapis.com/plus/v1/people/' + Config.get('id') + '/ac
 
         var attachments = object.attachments || [];
         for (var j = 0; j < attachments.length; j++) {
-          var attachment = attachments[j];
-          switch (attachment.objectType) {
+            var attachment = attachments[j];
+            switch (attachment.objectType) {
             case 'album':
-              break;//needs more work
-        var upper = attachment.thumbnails.length > 7 ? 7 : attachment.thumbnails.length;
-        html.push('<ul class="thumbnails">');
-        for(var k=1; k<upper; k++){
-            html.push('<li class="span2"><img src="' + attachment.thumbnails[k].image.url + '" /></li>');
-        }
-        html.push('</ul>');
+                break;//needs more work
+                var upper = attachment.thumbnails.length > 7 ? 7 : attachment.thumbnails.length;
+                html.push('<ul class="thumbnails">');
+                for(var k=1; k<upper; k++){
+                    html.push('<li class="span2"><img src="' + attachment.thumbnails[k].image.url + '" /></li>');
+                }
+                html.push('</ul>');
 
             case 'photo':
-              thumbnails.push({
-                url: attachment.image.url,
-                link: attachment.fullImage.url
-              });
-              break;
+                thumbnails.push({
+                    url: attachment.image.url,
+                    link: attachment.fullImage.url
+                });
+                break;
 
             case 'video':
-              thumbnails.push({
-                url: attachment.image.url,
-                link: attachment.url
-              });
-              break;
+                thumbnails.push({
+                    url: attachment.image.url,
+                    link: attachment.url
+                });
+                break;
 
             case 'article':
-              html.push('<div class="link-attachment"><a href="' +
-                  attachment.url + '">' + attachment.displayName + '</a>');
-              if (attachment.content) {
-                html.push('<br>' + attachment.content + '');
-              }
-              html.push('</div>');
-              break;
-          }
+                html.push('<div class="link-attachment"><a href="' +
+                          attachment.url + '">' + attachment.displayName + '</a>');
+                if (attachment.content) {
+                    html.push('<br>' + attachment.content + '');
+                }
+                html.push('</div>');
+                break;
+            }
         }
 
         html = html.join('');
@@ -218,88 +218,88 @@ $.getJSON('https://www.googleapis.com/plus/v1/people/' + Config.get('id') + '/ac
         actor_image = actor_image.substr(0,actor_image.length-2)+'16';
 
         var entry = {
-          via: {
-            name: 'Google+',
-            url: item.url
-          },
-          body: html,
-          date: item.updated,
-          reshares: (object.resharers || {}).totalItems,
-          plusones: (object.plusoners || {}).totalItems,
-          comments: (object.replies || {}).totalItems,
-          thumbnails: thumbnails,
-          icon: actor_image
+            via: {
+                name: 'Google+',
+                url: item.url
+            },
+            body: html,
+            date: item.updated,
+            reshares: (object.resharers || {}).totalItems,
+            plusones: (object.plusoners || {}).totalItems,
+            comments: (object.replies || {}).totalItems,
+            thumbnails: thumbnails,
+            icon: actor_image
         };
 
         entries.push(entry);
-      }
+    }
 
-      rebuildStreamUI(entries);
-  });
+    rebuildStreamUI(entries);
+});
 
 // To be called once we have stream data
 function rebuildStreamUI(entries) {
-  entries = entries || [];
-  entries.sort(function(x,y){ return y.date - x.date; });
+    entries = entries || [];
+    entries.sort(function(x,y){ return y.date - x.date; });
 
-  for (var i = 0; i < entries.length; i++) {
-    var entry = entries[i];
-    var $entry = $('<li>')
-        .addClass(entry.via.name)
-        .html(entry.body)
+    for (var i = 0; i < entries.length; i++) {
+        var entry = entries[i];
+        var $entry = $('<li>')
+            .addClass(entry.via.name)
+            .html(entry.body)
 
-    // Entry icon
-    $('<img class="icon">')
-        .attr('src', entry.icon)
-        .appendTo($entry);
+        // Entry icon
+        $('<img class="icon">')
+            .attr('src', entry.icon)
+            .appendTo($entry);
 
-    // Thumbnails
-    if (entry.thumbnails && entry.thumbnails.length) {
-      var $thumbs = $('<ul class="thumbnails">').appendTo($entry);
-      for (var j = 0; j < entry.thumbnails.length; j++) {
-        var thumb = entry.thumbnails[j];
-        var $thumb = $('<li>').appendTo($thumbs);
-        if (thumb.link)
-          $thumb = $('<a>')
-              .attr('href', thumb.link)
-              .appendTo($thumb);
-        $('<img>')
-            .attr({
-              src: thumb.url/*,
-              width: thumb.width,
-              height: thumb.height*/
-            })
-            .appendTo($thumb);
-      }
+        // Thumbnails
+        if (entry.thumbnails && entry.thumbnails.length) {
+            var $thumbs = $('<ul class="thumbnails">').appendTo($entry);
+            for (var j = 0; j < entry.thumbnails.length; j++) {
+                var thumb = entry.thumbnails[j];
+                var $thumb = $('<li>').appendTo($thumbs);
+                if (thumb.link)
+                    $thumb = $('<a>')
+                    .attr('href', thumb.link)
+                    .appendTo($thumb);
+                $('<img>')
+                    .attr({
+                        src: thumb.url/*,
+                                        width: thumb.width,
+                                        height: thumb.height*/
+                    })
+                    .appendTo($thumb);
+            }
+        }
+
+        // Meta (date/time, via link)
+        var $meta = $('<div class="meta">').appendTo($entry);
+        $('<span class="from">')
+            .html('Posted on ' + dateFormat(entry.date, 'fullDate'))
+            .appendTo($meta);
+
+
+
+        if (entry.comments) {
+            $('<span class="label">')
+                .text(entry.comments + ' comment' +
+                      ((entry.comments == 1) ? '' : 's'))
+                .appendTo($entry);
+        }
+        if (entry.reshares) {
+            $('<span class="label">')
+                .text(entry.reshares + ' reshare' +
+                      ((entry.reshares == 1) ? '' : 's'))
+                .appendTo($entry);
+        }
+        //+1 button
+        $('<span class="g-plusone label" data-size="medium" data-annotation="bubble" data-href="'+entry.via.url+'">')
+            .appendTo($entry);
+
+        $entry.appendTo('#news-feed');
     }
 
-    // Meta (date/time, via link)
-    var $meta = $('<div class="meta">').appendTo($entry);
-    $('<span class="from">')
-        .html('Posted on ' + dateFormat(entry.date, 'fullDate'))
-        .appendTo($meta);
-
-
-
-    if (entry.comments) {
-      $('<span class="label">')
-          .text(entry.comments + ' comment' +
-              ((entry.comments == 1) ? '' : 's'))
-          .appendTo($entry);
-    }
-    if (entry.reshares) {
-      $('<span class="label">')
-          .text(entry.reshares + ' reshare' +
-              ((entry.reshares == 1) ? '' : 's'))
-          .appendTo($entry);
-    }
-    //+1 button
-    $('<span class="g-plusone label" data-size="medium" data-annotation="bubble" data-href="'+entry.via.url+'">')
-        .appendTo($entry);
-
-    $entry.appendTo('#news-feed');
-  }
-
-  //render +1 buttons
-  gapi.plusone.go();
+    //render +1 buttons
+    gapi.plusone.go();
 }
