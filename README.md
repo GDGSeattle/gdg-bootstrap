@@ -29,6 +29,7 @@ That's it!  Your site will be running at:
 
     http://yourname.github.io/gdg-bootstrap
 
+
 *If the site is not visible, give it 10 minutes or so for github to begin serving your site.*
 
 ## LIVE EXAMPLES
