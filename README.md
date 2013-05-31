@@ -27,13 +27,13 @@ not your personal), and API Key.
 
 Should just work ...
 
-LIVE EXAMPLES
-=============
-1. [GDG Fresno][http://gdgfresno.com/]
-2. [GDG Albuquerque][http://gdgabq.com/]
-3. [GDG Zurich][http://gdgzh.ch/test/]
-4. [Brussels GTUG][https://googledrive.com/host/0B5AyOi3Zg85OT1pueUl4QzZ2YVk/index.html]
-5. [GDG Seattle][http://mckoss.github.io/gdg-bootstrap/]
+## LIVE EXAMPLES
+
+1. [GDG Fresno](http://gdgfresno.com/)
+2. [GDG Albuquerque](http://gdgabq.com/)
+3. [GDG Zurich](http://gdgzh.ch/test/)
+4. [Brussels GTUG](https://googledrive.com/host/0B5AyOi3Zg85OT1pueUl4QzZ2YVk/index.html)
+5. [GDG Seattle](http://mckoss.github.io/gdg-bootstrap/)
 
 ## Revision History
 
