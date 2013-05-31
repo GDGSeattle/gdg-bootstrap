@@ -19,13 +19,17 @@ Includes jQuery, Twitter Bootstrap, and a JavaScript Date Formatter - License al
 
 ## How do I use it?
 
-Go to Google Developer API console (https://code.google.com/apis/console/) and create a project, or use existing
-one, that has the Google+ Service turned on. You will need an API Key to get "About" and "Photo" sections to work.
+The simplest way to use GDG Bootstrap for your own club is to host the (static) site on github.
 
-Open /js/gdg.js and modify the config lines 3-5, with your GDG Name, Google+ Profile ID (Use your chapters +Page,
-not your personal), and API Key.
+- Fork this repository.
+- (Be sure you're editing the gh-pages branch).
+- Edit the file js/gdg-config.js (follow the instructions within).
 
-Should just work ...
+That's it!  Your site will be running at:
+
+    http://yourname.github.io/gdg-bootstrap
+
+*If the site is not visible, give it 10 minutes or so for github to begin serving your site.*
 
 ## LIVE EXAMPLES
 
