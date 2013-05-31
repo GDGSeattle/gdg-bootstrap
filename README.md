@@ -1,6 +1,6 @@
 # GDG Bootstrap
 
-A GDG club static web site with integration to [Google Developer Groups][http://developers.google.com/groups].
+A GDG club static web site with integration to [Google Developer Groups](http://developers.google.com/groups).
 
 Created by [+Joshua Woodward]
 with contributions from:
@@ -13,7 +13,7 @@ with contributions from:
   [+Friedger Müffke]: https://plus.google.com/107100127479392600261
   [+Michel Racic]: https://plus.google.com/109163915105172405583
   [+Dustin Brand]: https://plus.google.com/111468921647150271146
-  [+Mike Koss]: https://plus.google.com/104304419342230315027
+  [+Mike Koss]: https://plus.google.com/101132562710376037298
 
 Includes jQuery, Twitter Bootstrap, and a JavaScript Date Formatter - License all inside
 
