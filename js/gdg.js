@@ -6,12 +6,24 @@ namespace.module('gdg-bootstrap', function(exports, require) {
     var DEV_CHAPTER_PAGE = 'https://developers.google.com/groups/chapter/';
     var PHOTO_FEED = 'https://picasaweb.google.com/data/feed/api/user/';
 
+    exports.extend({
+        signInCallback: signInCallback
+    });
+
     $(document).ready(init);
 
     function init() {
         $('head').append('<link href="css/' + config.theme + '" rel="stylesheet"/>');
         $('title').prepend(config.name + ' | ');
         $('.brand').html('<strong>' + config.name + '</strong>');
+
+        gapi.signin.render('signInButton', {
+            callback: signInCallback,
+            clientid: config.clientId,
+            cookiepolicy: 'single_host_origin',
+            requestvisibleactions: 'http://schemas.google.com/AddActivity',
+            scope: 'https://www.googleapis.com/auth/plus.login'
+            });
 
         $('#join_chapter').click(onJoin);
         $('li#googleplus').click(function () {
@@ -56,6 +68,21 @@ namespace.module('gdg-bootstrap', function(exports, require) {
         $('.nav li').removeClass('active');
         $('#'+panel+'_sec').show();
         $('#'+panel+'_nav').addClass('active');
+    }
+
+    function signInCallback(authResult) {
+        if (authResult['access_token']) {
+            // Successfully authorized
+            // Hide the sign-in button now that the user is authorized, for example:
+            document.getElementById('signInButton').setAttribute('style', 'display: none');
+            console.log("Signed in");
+        } else if (authResult['error']) {
+            // There was an error.
+            // Possible error codes:
+            //   "access_denied" - User denied access to your app
+            //   "immediate_failed" - Could not automatically log in the user
+            console.log('There was an error: ' + authResult['error']);
+        }
     }
 
     // Join - "I'm a member button"

@@ -11,8 +11,8 @@
     <!--<link href="css/bootstrap-responsive.min.css" rel="stylesheet" media="screen">-->
   </head>
   <body>
-    <a href="https://github.com/mckoss/gdg-bootstrap" target="_blank">
-      <img id="gdg_ribbon" src="img/gdg-ribbon.png" alt="GDG Bootstrap">
+    <a id="gdg_ribbon" href="https://github.com/mckoss/gdg-bootstrap" target="_blank">
+      <img src="img/gdg-ribbon.png" alt="GDG Bootstrap">
     </a>
     <div class="navbar navbar-fixed-top">
       <div class="navbar-inner">
@@ -24,8 +24,14 @@
             <li id="events_nav"><a href="#events">Events</a></li>
             <li id="photos_nav"><a href="#photos">Photos</a></li>
             <li id="googleplus"><a href="#">Google+</a></li>
+            </li>
           </ul>
-          <button type="button" id="join_chapter" class="btn btn-primary pull-right">Join Group</button>
+          <div style="display: inline-block;" class="pull-right">
+            <ul class="nav">
+              <li id="signInButton"><a href="#">Sign In</a></li>
+            </ul>
+            <button type="button" id="join_chapter" class="btn btn-primary">Join Group</button>
+          </span>
         </div>
       </div>
     </div>
@@ -67,11 +73,13 @@
         </div>
       </div>
     </div>
-    <script src="https://apis.google.com/js/plusone.js" parsetags="explicit"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.1/jquery.min.js"></script>
-    <script src="js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="https://apis.google.com/js/plusone.js">
+      {"parsetags": "explicit"}
+    </script>
     <script src="js/namespace.min.js"></script>
     <script src="js/dateFormat.js"></script>
+    <script src="js/bootstrap.min.js"></script>
     <script src="js/gdg-config.js"></script>
     <script src="js/gdg.js"></script>
   </body>

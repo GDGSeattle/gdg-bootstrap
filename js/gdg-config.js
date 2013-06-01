@@ -7,6 +7,7 @@ namespace.module('gdg-bootstrap.config', function(exports, require) {
 
         // Get your own google api key from https://code.google.com/apis/console/
         'google_api'    : 'AIzaSyBq72pwSnMvRbzQfy-NdxNtCfbyeh6I6kg',
+        'clientId'      : '1056800815612.apps.googleusercontent.com',
 
         // Google Plus photo album id (aka Picassa web album)
         'pwa_id'        : '5706159208906929457',
