@@ -19,6 +19,7 @@ namespace.module('gdg-bootstrap', function(exports, require) {
 
         gapi.signin.render('signInButton', {
             callback: signInCallback,
+            height: '30px',
             clientid: config.clientId,
             cookiepolicy: 'single_host_origin',
             requestvisibleactions: 'http://schemas.google.com/AddActivity',
