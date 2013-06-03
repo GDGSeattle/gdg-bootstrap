@@ -76,7 +76,7 @@ namespace.module('gdg-bootstrap', function(exports, require) {
             // Successfully authorized
             // Hide the sign-in button now that the user is authorized, for example:
             document.getElementById('signInButton').setAttribute('style', 'display: none');
-            console.log("Signed in");
+            console.log("Signed in", authResult);
         } else if (authResult['error']) {
             // There was an error.
             // Possible error codes:
