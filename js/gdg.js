@@ -1,3 +1,4 @@
+/*global namespace, $, gapi, console, dateFormat */
 namespace.module('gdg-bootstrap', function(exports, require) {
     var config = require('gdg-bootstrap.config');
     var PLUS_API = 'https://www.googleapis.com/plus/v1/people/';
@@ -28,7 +29,7 @@ namespace.module('gdg-bootstrap', function(exports, require) {
 
         $('#join_chapter').click(onJoin);
         $('li#googleplus').click(function () {
-            window.open(PLUS_PROFILE + config.id)
+            window.open(PLUS_PROFILE + config.id);
         });
 
         $.getJSON(PLUS_API + config.id + '?' +
@@ -51,7 +52,7 @@ namespace.module('gdg-bootstrap', function(exports, require) {
         $.getJSON(PLUS_API + config.id + '/activities/public?' +
                   $.param({
                       maxResults: 10,
-                      key: config.google_api,
+                      key: config.google_api
                   }),
                   updateNews);
 
@@ -117,7 +118,7 @@ namespace.module('gdg-bootstrap', function(exports, require) {
                   $.param({
                       alt: 'json-in-script',
                       'max-results': 12,
-                      kind: 'photo',
+                      kind: 'photo'
                   }),
                   function (d) {
                       var tn;
@@ -138,8 +139,8 @@ namespace.module('gdg-bootstrap', function(exports, require) {
         for(var i=data.length-1;i>=0;i--){
             var start = new Date(data[i].start);
 
-            var format = start.format("longDate")
-            format += ' '+start.format("shortTime")
+            var format = start.format("longDate");
+            format += ' '+start.format("shortTime");
 
             var html = '<div class="media">';
             html+= data[i].iconUrl != undefined ? '<a class="pull-left" href="https://developers.google.com'+data[i].link+'" target="_blank"><img class="media-object" src="https://developers.google.com'+data[i].iconUrl+'"></a>' : '';
@@ -187,11 +188,11 @@ namespace.module('gdg-bootstrap', function(exports, require) {
         for(var x in p){
             count++;
             if(count == 1){
-                html = '<li class="span4"><a href="'+p[x].link[1].href+'" class="thumbnail" target="_blank"><img src="'+ p[x].content.src + '?sz=460" alt="'+p[x].title.$t+'" title="'+p[x].summary.$t+'"></a></li>'
+                html = '<li class="span4"><a href="'+p[x].link[1].href+'" class="thumbnail" target="_blank"><img src="'+ p[x].content.src + '?sz=460" alt="'+p[x].title.$t+'" title="'+p[x].summary.$t+'"></a></li>';
             }else if(count == 14){
-                html = '<li class="span4 pull-right"><a href="'+p[x].link[1].href+'" class="thumbnail" target="_blank"><img src="'+ p[x].content.src + '?sz=460" alt="'+p[x].title.$t+'" title="'+p[x].summary.$t+'"></a></li>'
+                html = '<li class="span4 pull-right"><a href="'+p[x].link[1].href+'" class="thumbnail" target="_blank"><img src="'+ p[x].content.src + '?sz=460" alt="'+p[x].title.$t+'" title="'+p[x].summary.$t+'"></a></li>';
             }else{
-                html = '<li class="span2"><a href="'+p[x].link[1].href+'" class="thumbnail" target="_blank"><img src="'+ p[x].content.src + '?sz=260" alt="'+p[x].title.$t+'" title="'+p[x].summary.$t+'"></a></li>'
+                html = '<li class="span2"><a href="'+p[x].link[1].href+'" class="thumbnail" target="_blank"><img src="'+ p[x].content.src + '?sz=260" alt="'+p[x].title.$t+'" title="'+p[x].summary.$t+'"></a></li>';
             }
             $('#photo_container').append(html);
         }
@@ -226,13 +227,15 @@ namespace.module('gdg-bootstrap', function(exports, require) {
                 var attachment = attachments[j];
                 switch (attachment.objectType) {
                 case 'album':
-                    break;//needs more work
+/* needs more work
                     var upper = attachment.thumbnails.length > 7 ? 7 : attachment.thumbnails.length;
                     html.push('<ul class="thumbnails">');
                     for(var k=1; k<upper; k++){
                         html.push('<li class="span2"><img src="' + attachment.thumbnails[k].image.url + '" /></li>');
                     }
                     html.push('</ul>');
+*/
+                    break;
 
                 case 'photo':
                     thumbnails.push({
@@ -293,7 +296,7 @@ namespace.module('gdg-bootstrap', function(exports, require) {
             var entry = entries[i];
             var $entry = $('<li>')
                 .addClass(entry.via.name)
-                .html(entry.body)
+                .html(entry.body);
 
             // Entry icon
             $('<img class="icon">')
@@ -306,10 +309,11 @@ namespace.module('gdg-bootstrap', function(exports, require) {
                 for (var j = 0; j < entry.thumbnails.length; j++) {
                     var thumb = entry.thumbnails[j];
                     var $thumb = $('<li>').appendTo($thumbs);
-                    if (thumb.link)
+                    if (thumb.link) {
                         $thumb = $('<a>')
                         .attr('href', thumb.link)
                         .appendTo($thumb);
+                    }
                     $('<img>')
                         .attr({
                             src: thumb.url/*,
